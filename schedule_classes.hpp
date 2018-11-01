@@ -1,5 +1,4 @@
 #include <iostream>
-using namespace std;
 #ifndef SCHEDULE_CLASSES_H
 #define SCHEDULE_CLASSES_H
 
@@ -7,21 +6,21 @@ const int SIZE = 50;
 
 class Assignment{
   private:
-    string toDo;
-    string className;
+    std::string toDo;
+    std::string className;
     int day;
     int month;
 
   public:
     Assignment();
-    Assignment(string, string, int, int);
+    Assignment(std::string, std::string, int, int);
     ~Assignment();
 
-    string getToDo();
-    void setToDo(string);
+    std::string getToDo();
+    void setToDo(std::string);
 
-    string getClassName();
-    void setClassName(string);
+    std::string getClassName();
+    void setClassName(std::string);
 
     int getDayDue();
     void setDayDue(int);
@@ -37,7 +36,7 @@ Assignment::Assignment(){
   month = -1;
 }
 
-Assignment::Assignment(string to, string name, int d, int m){
+Assignment::Assignment(std::string to, std::string name, int d, int m){
   toDo = to;
   className = name;
   day = d;
@@ -48,19 +47,19 @@ Assignment::~Assignment(){
 
 }
 
-string Assignment::getToDo(){
+std::string Assignment::getToDo(){
   return toDo;
 }
 
-void Assignment::setToDo(string str){
+void Assignment::setToDo(std::string str){
   toDo = str;
 }
 
-string Assignment::getClassName(){
+std::string Assignment::getClassName(){
   return className;
 }
 
-void Assignment::setClassName(string str){
+void Assignment::setClassName(std::string str){
   className = str;
 }
 
@@ -80,14 +79,14 @@ void Assignment::setMonthDue(int m){
   month = m;
 }
 
-class assignmentTracker{
+class AssignmentTracker{
   private:
     int front, rear;
     Assignment assignments[SIZE];
 
   public:
-    assignmentTracker();
-    assignmentTracker(Assignment[]);
+    AssignmentTracker();
+    AssignmentTracker(Assignment[]);
     bool isEmpty();
     void addAssignment();
     void completeAssignment();
@@ -95,7 +94,7 @@ class assignmentTracker{
     void print();
 };
 
-assignmentTracker::assignmentTracker(){
+AssignmentTracker::AssignmentTracker(){
   front = rear = 0;
 
   for(int i = 0; i < 50; i++){
@@ -107,7 +106,7 @@ assignmentTracker::assignmentTracker(){
   }
 }
 
-assignmentTracker::assignmentTracker(Assignment work[]){
+AssignmentTracker::AssignmentTracker(Assignment work[]){
   front = 0;
   for(int i = 0; i < 50; i++){
     if(work[i].getDayDue() == -1){
@@ -118,7 +117,7 @@ assignmentTracker::assignmentTracker(Assignment work[]){
   }
 }
 
-bool assignmentTracker::isEmpty(){
+bool AssignmentTracker::isEmpty(){
   if(front == rear){
     return true;
   }
@@ -128,21 +127,21 @@ bool assignmentTracker::isEmpty(){
   }
 }
 
-void assignmentTracker::addAssignment(){
-  string forClass;
-  string what;
-  string due;
+void AssignmentTracker::addAssignment(){
+  std::string forClass;
+  std::string what;
+  std::string due;
 
-  cout << "What class is this for?" << endl;
-  cin >> forClass;
+  std::cout << "What class is this for?" << std::endl;
+  getline(std::cin, forClass);
 
-  cout << "\nWhat is the assignment" << endl;
-  cin >> what;
+  std::cout << "\nWhat is the assignment" << std::endl;
+  getline(std::cin, what);
 
-  cout << "\nWhat day is it due? (In mm/dd format)" << endl;
-  cin >> due;
+  std::cout << "\nWhat day is it due? (In mm/dd format)" << std::endl;
+  std::cin >> due;
 
-  cout << "\nAssignment added to calender!" << endl;
+  std::cout << "\nAssignment added to calender!" << std::endl;
 
   int d = stoi(due.substr(3,4));
   int m = stoi(due.substr(0,1));
@@ -155,11 +154,10 @@ void assignmentTracker::addAssignment(){
 
 }
 
-void assignmentTracker::print(){
+void AssignmentTracker::print(){
   for(int i = 0; i < rear; i++){
-    cout << assignments[i].getToDo() << " " << assignments[i].getClassName() << " " << assignments[i].getMonthDue() << " " << assignments[i].getDayDue() << endl;
+    std::cout << assignments[i].getToDo() << " " << assignments[i].getClassName() << " " << assignments[i].getMonthDue() << " " << assignments[i].getDayDue() << std::endl;
   }
-
 }
 
 
