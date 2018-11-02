@@ -4,6 +4,8 @@
 
 const int SIZE = 50;
 
+
+
 class Assignment{
   private:
     std::string toDo;
@@ -85,17 +87,17 @@ class AssignmentTracker{
     Assignment assignments[SIZE];
 
   public:
-    AssignmentTracker();
-    AssignmentTracker(Assignment[]);
-    bool isEmpty();
-    void addAssignment();
-    void completeAssignment();
-    int peek(int);
-    void print();
+    AssignmentTracker(); //done
+    AssignmentTracker(Assignment[]); //done
+    bool isEmpty(); //done
+    void addAssignment(); //done
+    void completeAssignment(); 
+    Assignment peek(int); //done
+    void print(); //done
 };
 
 AssignmentTracker::AssignmentTracker(){
-  front = rear = 0;
+  front = rear = -1;
 
   for(int i = 0; i < 50; i++){
     assignments[i].setToDo("None");
@@ -148,9 +150,15 @@ void AssignmentTracker::addAssignment(){
 
   Assignment newAssignment(what, forClass, d, m);
 
-  assignments[rear] = newAssignment;
+  if(isEmpty()){
+    front = rear = 0;
+  }
 
-  rear++;
+  else{
+    rear = (rear+1)%SIZE;
+  }
+
+  assignments[rear] = newAssignment;
 
 }
 
@@ -159,6 +167,26 @@ void AssignmentTracker::print(){
     std::cout << assignments[i].getToDo() << " " << assignments[i].getClassName() << " " << assignments[i].getMonthDue() << " " << assignments[i].getDayDue() << std::endl;
   }
 }
+
+Assignment AssignmentTracker::peek(int idx){
+  return assignments[idx];
+}
+
+void AssignmentTracker::completeAssignment(){
+  if(isEmpty()){
+    std::cout << "You have no assignments to complete" << std::endl;
+  }
+
+  else if(front == rear){
+      front = rear = -1;
+    }
+
+  else{
+    front = (front+1)%SIZE;
+  }
+}
+
+
 
 
 
